@@ -1,0 +1,6 @@
+name: Fifa legacy
+type: module
+description: This module should be installed on the legacy system, to export old data.
+package: Fifa
+core: 8.x
+core_version_requirement: ^8 || ^9

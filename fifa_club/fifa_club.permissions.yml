@@ -1,0 +1,15 @@
+administer club:
+  title: 'Administer club settings'
+  restrict access: true
+access club overview:
+  title: 'Access club overview page'
+delete club:
+  title: Delete club
+create club:
+  title: Create club
+view club:
+  title: View club
+edit own club:
+  title: Edit own club
+edit any club:
+  title: Edit any club

@@ -1,0 +1,10 @@
+entity.fifa_match.settings:
+  title: Match
+  description: Configure a Match entity type
+  route_name:  entity.fifa_match.settings
+  parent: system.admin_structure
+entity.fifa_match.collection:
+  title: Matchs
+  description: List of matchs
+  route_name: entity.fifa_match.collection
+  parent: system.admin_content

@@ -1,0 +1,5 @@
+fifa_club.add_form:
+  route_name: entity.fifa_club.add_form
+  title: 'Add club'
+  appears_on:
+    - entity.fifa_club.collection

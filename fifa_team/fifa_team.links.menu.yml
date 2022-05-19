@@ -1,0 +1,10 @@
+entity.fifa_team.settings:
+  title: Team
+  description: Configure a Team entity type
+  route_name:  entity.fifa_team.settings
+  parent: system.admin_structure
+entity.fifa_team.collection:
+  title: Teams
+  description: List of teams
+  route_name: entity.fifa_team.collection
+  parent: system.admin_content

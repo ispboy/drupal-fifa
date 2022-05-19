@@ -1,0 +1,7 @@
+fifa_legacy.example:
+  path: '/fifa-legacy/club'
+  defaults:
+    _title: 'Club'
+    _controller: '\Drupal\fifa_legacy\Controller\FifaLegacyController::club'
+  requirements:
+    _permission: 'access content'

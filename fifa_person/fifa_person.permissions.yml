@@ -1,0 +1,15 @@
+administer person:
+  title: 'Administer person settings'
+  restrict access: true
+access person overview:
+  title: 'Access person overview page'
+delete person:
+  title: Delete person
+create person:
+  title: Create person
+view person:
+  title: View person
+edit own person:
+  title: Edit own person
+edit any person:
+  title: Edit any person

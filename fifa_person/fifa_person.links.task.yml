@@ -1,0 +1,22 @@
+entity.fifa_person.settings:
+  title: Settings
+  route_name: entity.fifa_person.settings
+  base_route: entity.fifa_person.settings
+entity.fifa_person.view:
+  title: View
+  route_name: entity.fifa_person.canonical
+  base_route: entity.fifa_person.canonical
+entity.fifa_person.edit_form:
+  title: Edit
+  route_name: entity.fifa_person.edit_form
+  base_route: entity.fifa_person.canonical
+entity.fifa_person.delete_form:
+  title: Delete
+  route_name: entity.fifa_person.delete_form
+  base_route: entity.fifa_person.canonical
+  weight: 10
+entity.fifa_person.collection:
+  title: Person
+  route_name: entity.fifa_person.collection
+  base_route: system.admin_content
+  weight: 10

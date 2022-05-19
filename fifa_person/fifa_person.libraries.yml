@@ -1,0 +1,4 @@
+fifa_person_club:
+  css:
+    component:
+      css/fifa-person-club-widget.css: {}

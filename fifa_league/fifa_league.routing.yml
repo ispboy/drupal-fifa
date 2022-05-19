@@ -1,0 +1,7 @@
+entity.fifa_league.settings:
+  path: 'admin/structure/fifa-league'
+  defaults:
+    _form: '\Drupal\fifa_league\Form\FifaLeagueSettingsForm'
+    _title: 'League'
+  requirements:
+    _permission: 'administer league'

@@ -1,0 +1,51 @@
+<?php
+use Drupal\Core\Datetime\DrupalDateTime;
+
+/**
+ * @file
+ * Provides a person entity type.
+ */
+
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_theme().
+ */
+function fifa_person_theme() {
+  return [
+    'fifa_person' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for person templates.
+ *
+ * Default template: fifa-person.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the person information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_fifa_person(array &$variables) {
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+* hook_ENTITY_TYPE_presave
+* to process data of the manual input.
+**/
+function fifa_person_fifa_person_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  $card = $entity->get('field_id_card_number')->getString();
+  if ($card) {
+    $birthday = strlen($card) == 15 ? ('19'. substr($card, 6, 6)) : substr($card, 6, 8);
+    $timestamp = strtotime($birthday);
+    $date = DrupalDateTime::createFromTimestamp($timestamp);
+    $entity->set('field_birthday', $date->format('Y-m-d'));
+  }
+}

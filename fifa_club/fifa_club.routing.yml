@@ -1,0 +1,7 @@
+entity.fifa_club.settings:
+  path: 'admin/structure/fifa-club'
+  defaults:
+    _form: '\Drupal\fifa_club\Form\FifaClubSettingsForm'
+    _title: 'Club'
+  requirements:
+    _permission: 'administer club'

@@ -1,0 +1,22 @@
+entity.fifa_match.settings:
+  title: Settings
+  route_name: entity.fifa_match.settings
+  base_route: entity.fifa_match.settings
+entity.fifa_match.view:
+  title: View
+  route_name: entity.fifa_match.canonical
+  base_route: entity.fifa_match.canonical
+entity.fifa_match.edit_form:
+  title: Edit
+  route_name: entity.fifa_match.edit_form
+  base_route: entity.fifa_match.canonical
+entity.fifa_match.delete_form:
+  title: Delete
+  route_name: entity.fifa_match.delete_form
+  base_route: entity.fifa_match.canonical
+  weight: 10
+entity.fifa_match.collection:
+  title: Match
+  route_name: entity.fifa_match.collection
+  base_route: system.admin_content
+  weight: 10

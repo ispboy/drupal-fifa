@@ -1,0 +1,10 @@
+entity.fifa_league.settings:
+  title: League
+  description: Configure a League entity type
+  route_name:  entity.fifa_league.settings
+  parent: system.admin_structure
+entity.fifa_league.collection:
+  title: Leagues
+  description: List of leagues
+  route_name: entity.fifa_league.collection
+  parent: system.admin_content

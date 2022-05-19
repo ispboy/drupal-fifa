@@ -1,0 +1,17 @@
+administer team:
+  title: 'Administer team settings'
+  restrict access: true
+access team overview:
+  title: 'Access team overview page'
+delete own team:
+  title: Delete own team
+delete any team:
+  title: Delete any team
+create team:
+  title: Create team
+view team:
+  title: View team
+edit own team:
+  title: Edit own team
+edit any team:
+  title: Edit any team

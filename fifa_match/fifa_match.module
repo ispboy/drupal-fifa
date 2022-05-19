@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Provides a match entity type.
+ */
+
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_theme().
+ */
+function fifa_match_theme() {
+  return [
+    'fifa_match' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for match templates.
+ *
+ * Default template: fifa-match.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the match information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_fifa_match(array &$variables) {
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+* hook_ENTITY_TYPE_presave
+* to process data of the manual input.
+**/
+function fifa_match_fifa_match_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  $delimit = 'vs';
+
+  $goals_scored = $entity->get('field_goals_scored')->getValue();
+  if (count($goals_scored) == 2) {
+    $entity->set('field_goals_against', array_reverse($goals_scored));
+    $delimit = $goals_scored[0]['value']. ' : '. $goals_scored[1]['value'];
+  }
+
+  $nodes = $entity->get('field_team')->referencedEntities();
+  if (count($nodes) == 2) {
+    $names = [];
+    foreach ($nodes as $node) {
+      $names[] = $node->get('title')->getString();
+    }
+
+    $title = implode(' '. $delimit. ' ', $names);
+    // Get saved timestamp from a DateTimeFieldItemList field.
+    $date_value = $entity->get('field_datetime')->getString();
+    if ($date_value) {
+      $date_time = new \Drupal\Core\Datetime\DrupalDateTime($date_value, new \DateTimeZone('UTC'));
+      $timestamp = $date_time->getTimestamp();
+      // All other arguments are optional:
+      // See DateFormatterInterface for built-in options, or use machine name of a date format in config.
+      $type = 'custom';
+      // Custom PHP date format if $type="custom".
+      $format = 'Y-m-d';
+      // > Drupal 8.8
+      // See https://www.drupal.org/node/3009387
+      $timezone = NULL;
+      $langcode = NULL;
+      /** @var Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+      $date_formatter = \Drupal::service('date.formatter');
+      $formatted = $date_formatter->format($timestamp, $type, $format, $timezone, $langcode);
+      $title .= ' ('. $formatted. ')';
+    }
+
+    $entity->set('title', $title);
+
+  }
+
+}

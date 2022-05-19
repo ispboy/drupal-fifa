@@ -1,0 +1,10 @@
+entity.fifa_person.settings:
+  title: Person
+  description: Configure a Person entity type
+  route_name:  entity.fifa_person.settings
+  parent: system.admin_structure
+entity.fifa_person.collection:
+  title: Persons
+  description: List of persons
+  route_name: entity.fifa_person.collection
+  parent: system.admin_content

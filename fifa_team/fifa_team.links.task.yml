@@ -1,0 +1,22 @@
+entity.fifa_team.settings:
+  title: Settings
+  route_name: entity.fifa_team.settings
+  base_route: entity.fifa_team.settings
+entity.fifa_team.view:
+  title: View
+  route_name: entity.fifa_team.canonical
+  base_route: entity.fifa_team.canonical
+entity.fifa_team.edit_form:
+  title: Edit
+  route_name: entity.fifa_team.edit_form
+  base_route: entity.fifa_team.canonical
+entity.fifa_team.delete_form:
+  title: Delete
+  route_name: entity.fifa_team.delete_form
+  base_route: entity.fifa_team.canonical
+  weight: 10
+entity.fifa_team.collection:
+  title: Team
+  route_name: entity.fifa_team.collection
+  base_route: system.admin_content
+  weight: 10

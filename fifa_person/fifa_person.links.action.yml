@@ -1,0 +1,5 @@
+fifa_person.add_form:
+  route_name: entity.fifa_person.add_form
+  title: 'Add person'
+  appears_on:
+    - entity.fifa_person.collection

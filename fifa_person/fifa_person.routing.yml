@@ -1,0 +1,7 @@
+entity.fifa_person.settings:
+  path: 'admin/structure/fifa-person'
+  defaults:
+    _form: '\Drupal\fifa_person\Form\FifaPersonSettingsForm'
+    _title: 'Person'
+  requirements:
+    _permission: 'administer person'

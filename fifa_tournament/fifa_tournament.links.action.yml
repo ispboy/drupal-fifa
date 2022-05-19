@@ -1,0 +1,11 @@
+fifa_tournament.type_add:
+  route_name: entity.fifa_tournament_type.add_form
+  title: 'Add tournament type'
+  appears_on:
+    - entity.fifa_tournament_type.collection
+
+fifa_tournament.add_page:
+  route_name: entity.fifa_tournament.add_page
+  title: 'Add tournament'
+  appears_on:
+    - entity.fifa_tournament.collection

@@ -1,0 +1,7 @@
+entity.fifa_match.settings:
+  path: 'admin/structure/fifa-match'
+  defaults:
+    _form: '\Drupal\fifa_match\Form\FifaMatchSettingsForm'
+    _title: 'Match'
+  requirements:
+    _permission: 'administer match'

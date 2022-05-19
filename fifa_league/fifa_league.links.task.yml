@@ -1,0 +1,22 @@
+entity.fifa_league.settings:
+  title: Settings
+  route_name: entity.fifa_league.settings
+  base_route: entity.fifa_league.settings
+entity.fifa_league.view:
+  title: View
+  route_name: entity.fifa_league.canonical
+  base_route: entity.fifa_league.canonical
+entity.fifa_league.edit_form:
+  title: Edit
+  route_name: entity.fifa_league.edit_form
+  base_route: entity.fifa_league.canonical
+entity.fifa_league.delete_form:
+  title: Delete
+  route_name: entity.fifa_league.delete_form
+  base_route: entity.fifa_league.canonical
+  weight: 10
+entity.fifa_league.collection:
+  title: League
+  route_name: entity.fifa_league.collection
+  base_route: system.admin_content
+  weight: 10

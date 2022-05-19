@@ -1,0 +1,5 @@
+entity.fifa_tournament_type.collection:
+  title: 'Tournament types'
+  parent: system.admin_structure
+  description: 'Manage and CRUD actions on Tournament type.'
+  route_name: entity.fifa_tournament_type.collection

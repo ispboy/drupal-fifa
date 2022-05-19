@@ -1,0 +1,17 @@
+administer match:
+  title: 'Administer match settings'
+  restrict access: true
+access match overview:
+  title: 'Access match overview page'
+delete own match:
+  title: Delete own match
+delete any match:
+  title: Delete any match
+create match:
+  title: Create match
+view match:
+  title: View match
+edit own match:
+  title: Edit own match
+edit any match:
+  title: Edit any match

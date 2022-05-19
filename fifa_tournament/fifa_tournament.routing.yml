@@ -1,0 +1,11 @@
+fifa_tournament.standings:
+  path: '/fifa-tournament/{fifa_tournament}/standings'
+  defaults:
+    _title_callback: '\Drupal\fifa_tournament\Controller\FifaTournamentController::setTitle'
+    _controller: '\Drupal\fifa_tournament\Controller\FifaTournamentController::build'
+  requirements:
+    _permission: 'view tournament'
+  options:
+    parameters:
+      fifa_tournament:
+        type: entity:fifa_tournament

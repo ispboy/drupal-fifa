@@ -1,0 +1,7 @@
+entity.fifa_team.settings:
+  path: 'admin/structure/fifa-team'
+  defaults:
+    _form: '\Drupal\fifa_team\Form\FifaTeamSettingsForm'
+    _title: 'Team'
+  requirements:
+    _permission: 'administer team'

@@ -1,0 +1,10 @@
+entity.fifa_club.settings:
+  title: Club
+  description: Configure a Club entity type
+  route_name:  entity.fifa_club.settings
+  parent: system.admin_structure
+entity.fifa_club.collection:
+  title: Clubs
+  description: List of clubs
+  route_name: entity.fifa_club.collection
+  parent: system.admin_content

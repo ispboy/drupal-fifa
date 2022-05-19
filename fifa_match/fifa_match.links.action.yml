@@ -1,0 +1,5 @@
+fifa_match.add_form:
+  route_name: entity.fifa_match.add_form
+  title: 'Add match'
+  appears_on:
+    - entity.fifa_match.collection
