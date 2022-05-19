@@ -2,3 +2,8 @@ fifa_person_club:
   css:
     component:
       css/fifa-person-club-widget.css: {}
+
+fifa_person_person:
+  css:
+    component:
+      css/fifa-person-person-widget.css: {}
