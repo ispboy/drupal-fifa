@@ -29,7 +29,7 @@ class PersonWidget extends EntityReferenceAutocompleteWidget {
       '#type' => 'number',
       '#default_value' => isset($items[$delta]->number) ? $items[$delta]->number : NULL,
       '#min' => 0,
-      '#weight' => 10,
+      '#weight' => 999, //the parent elements' weight is increment.
     );
 
     return $widget;

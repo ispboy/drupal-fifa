@@ -21,13 +21,13 @@ class PersonDefaultFormatter extends EntityReferenceLabelFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
-    $values = $items->getValue();
-
-    foreach ($elements as $delta => $entity) {
-      if (isset($values[$delta]['number'])) {
-        $elements[$delta]['#suffix'] = ' ' . $values[$delta]['number']. '号';
-      }
-    }
+    // $values = $items->getValue();
+    //
+    // foreach ($elements as $delta => $entity) {
+    //   if (isset($values[$delta]['number'])) {
+    //     $elements[$delta]['#suffix'] = ' ' . $values[$delta]['number']. '号';
+    //   }
+    // }
 
     return $elements;
   }

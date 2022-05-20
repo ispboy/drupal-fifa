@@ -49,3 +49,13 @@ function fifa_person_fifa_person_presave(Drupal\Core\Entity\EntityInterface $ent
     $entity->set('field_birthday', $date->format('Y-m-d'));
   }
 }
+
+/**
+* hook_field_formatter_info_alter
+* add field type to views_field_formatter
+**/
+function fifa_person_field_formatter_info_alter(array &$info) {
+
+  // Let a new field type re-use an existing formatter.
+  $info['views_field_formatter']['field_types'][] = 'fifa_person_person';
+}
