@@ -1,0 +1,36 @@
+status: true
+dependencies:
+  config:
+    - field.storage.fifa_person.field_image
+  module:
+    - fifa_person
+    - image
+id: fifa_person.fifa_person.field_image
+field_name: field_image
+entity_type: fifa_person
+bundle: fifa_person
+label: 头像
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: 'img/person/[date:custom:Y]/[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: 6f185a5e-a5e5-4ed7-ad6b-c68e41bc8be9
+    alt: ''
+    title: ''
+    width: 186
+    height: 186
+field_type: image
