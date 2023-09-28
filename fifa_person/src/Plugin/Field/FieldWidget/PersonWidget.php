@@ -29,7 +29,7 @@ class PersonWidget extends EntityReferenceAutocompleteWidget {
       '#type' => 'number',
       '#default_value' => isset($items[$delta]->number) ? $items[$delta]->number : NULL,
       '#min' => 0,
-      '#weight' => 10,
+      '#weight' => 999, //the parent elements' weight is increment.
     );
 
     return $widget;
@@ -39,6 +39,7 @@ class PersonWidget extends EntityReferenceAutocompleteWidget {
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    $values = parent::massageFormValues($values, $form, $form_state);
     foreach ($values as $delta => $value) {
       if ($value['number'] === '') {
         $values[$delta]['number'] = NULL;

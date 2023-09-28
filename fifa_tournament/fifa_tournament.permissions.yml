@@ -1,6 +1,5 @@
-administer tournament types:
-  title: 'Administer tournament types'
-  description: 'Maintain the types of tournament entity.'
+administer tournament:
+  title: 'Administer tournament settings'
   restrict access: true
 access tournament overview:
   title: 'Access tournament overview page'

@@ -2,8 +2,8 @@ name: Fifa Club
 type: module
 description: 'Provides a club entity.'
 package: Fifa
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - drupal:text
+  - fifa_person:fifa_person
 configure: entity.fifa_club.settings

@@ -6,23 +6,22 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 
 /**
- * Plugin implementation of the 'fifa_person_club_table' formatter.
+ * Plugin implementation of the 'fifa_person_person_table' formatter.
  *
  * @FieldFormatter(
- *   id = "fifa_person_club_table",
+ *   id = "fifa_person_person_table",
  *   label = @Translation("Table"),
- *   field_types = {"fifa_person_club"}
+ *   field_types = {"fifa_person_person"}
  * )
  */
-class ClubTableFormatter extends FormatterBase {
+class PersonTableFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-
     $header[] = '#';
-    $header[] = $this->t('Club');
+    $header[] = $this->t('Person');
     $header[] = $this->t('Number');
 
     $table = [
@@ -31,11 +30,12 @@ class ClubTableFormatter extends FormatterBase {
     ];
 
     foreach ($items as $delta => $item) {
+
       $row = [];
 
       $row[]['#markup'] = $delta + 1;
 
-      $row[]['#markup'] = $item->club;
+      $row[] = $item->get('entity')->getTarget()->getValue()->toLink()->toRenderable();
 
       $row[]['#markup'] = $item->number;
 

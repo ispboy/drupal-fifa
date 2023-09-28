@@ -1,0 +1,19 @@
+status: true
+dependencies:
+  module:
+    - fifa_person
+id: fifa_person.field_id_card_number
+field_name: field_id_card_number
+entity_type: fifa_person
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

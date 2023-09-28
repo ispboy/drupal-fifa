@@ -1,0 +1,5 @@
+fifa_group.add_form:
+  route_name: entity.fifa_group.add_form
+  title: 'Add group'
+  appears_on:
+    - entity.fifa_group.collection

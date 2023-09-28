@@ -2,8 +2,9 @@ name: Fifa Person
 type: module
 description: 'Provides a person entity.'
 package: Fifa
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - drupal:text
+  - drupal:datetime
+  - drupal:telephone
 configure: entity.fifa_person.settings

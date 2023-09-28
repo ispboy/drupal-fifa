@@ -6,15 +6,15 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 
 /**
- * Plugin implementation of the 'fifa_person_club_number' formatter.
+ * Plugin implementation of the 'fifa_person_person_number' formatter.
  *
  * @FieldFormatter(
- *   id = "fifa_person_club_number",
+ *   id = "fifa_person_person_number",
  *   label = @Translation("Number only"),
- *   field_types = {"fifa_person_club"}
+ *   field_types = {"fifa_person_person"}
  * )
  */
-class ClubNumberFormatter extends FormatterBase {
+class PersonNumberFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
@@ -25,7 +25,7 @@ class ClubNumberFormatter extends FormatterBase {
       if ($item->number) {
         $element[$delta]['number'] = [
           // '#type' => 'item',
-          '#title' => $this->t('Number', [], ['fifa_person']),
+          '#title' => $this->t('Number', [], ['context' => 'fifa_person']),
           '#markup' => $item->number,
         ];
       }

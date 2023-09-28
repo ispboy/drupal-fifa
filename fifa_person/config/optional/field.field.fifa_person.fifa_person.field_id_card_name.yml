@@ -1,0 +1,18 @@
+status: true
+dependencies:
+  config:
+    - field.storage.fifa_person.field_id_card_name
+  module:
+    - fifa_person
+id: fifa_person.fifa_person.field_id_card_name
+field_name: field_id_card_name
+entity_type: fifa_person
+bundle: fifa_person
+label: 身份证姓名
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

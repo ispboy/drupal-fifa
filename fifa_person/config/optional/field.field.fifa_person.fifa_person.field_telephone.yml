@@ -1,0 +1,19 @@
+status: true
+dependencies:
+  config:
+    - field.storage.fifa_person.field_telephone
+  module:
+    - fifa_person
+    - telephone
+id: fifa_person.fifa_person.field_telephone
+field_name: field_telephone
+entity_type: fifa_person
+bundle: fifa_person
+label: 联系电话
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

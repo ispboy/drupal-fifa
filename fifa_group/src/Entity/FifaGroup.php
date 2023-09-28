@@ -1,61 +1,61 @@
 <?php
 
-namespace Drupal\fifa_tournament\Entity;
+namespace Drupal\fifa_group\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\fifa_tournament\FifaTournamentInterface;
+use Drupal\fifa_group\FifaGroupInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the tournament entity class.
+ * Defines the group entity class.
  *
  * @ContentEntityType(
- *   id = "fifa_tournament",
- *   label = @Translation("Tournament"),
- *   label_collection = @Translation("Tournaments"),
+ *   id = "fifa_group",
+ *   label = @Translation("Group"),
+ *   label_collection = @Translation("Groups"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\fifa_tournament\FifaTournamentListBuilder",
+ *     "list_builder" = "Drupal\fifa_group\FifaGroupListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
- *     "access" = "Drupal\fifa_tournament\FifaTournamentAccessControlHandler",
+ *     "access" = "Drupal\fifa_group\FifaGroupAccessControlHandler",
  *     "form" = {
- *       "add" = "Drupal\fifa_tournament\Form\FifaTournamentForm",
- *       "edit" = "Drupal\fifa_tournament\Form\FifaTournamentForm",
+ *       "add" = "Drupal\fifa_group\Form\FifaGroupForm",
+ *       "edit" = "Drupal\fifa_group\Form\FifaGroupForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm"
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
  *     }
  *   },
- *   base_table = "fifa_tournament",
- *   admin_permission = "administer tournament",
+ *   base_table = "fifa_group",
+ *   admin_permission = "administer group",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "title",
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "add-form" = "/admin/content/fifa-tournament/add",
- *     "canonical" = "/fifa-tournament/{fifa_tournament}",
- *     "edit-form" = "/admin/content/fifa-tournament/{fifa_tournament}/edit",
- *     "delete-form" = "/admin/content/fifa-tournament/{fifa_tournament}/delete",
- *     "collection" = "/admin/content/fifa-tournament"
+ *     "add-form" = "/admin/content/fifa-group/add",
+ *     "canonical" = "/fifa-group/{fifa_group}",
+ *     "edit-form" = "/admin/content/fifa-group/{fifa_group}/edit",
+ *     "delete-form" = "/admin/content/fifa-group/{fifa_group}/delete",
+ *     "collection" = "/admin/content/fifa-group"
  *   },
- *   field_ui_base_route = "entity.fifa_tournament.settings"
+ *   field_ui_base_route = "entity.fifa_group.settings"
  * )
  */
-class FifaTournament extends ContentEntityBase implements FifaTournamentInterface {
+class FifaGroup extends ContentEntityBase implements FifaGroupInterface {
 
   use EntityChangedTrait;
 
   /**
    * {@inheritdoc}
    *
-   * When a new tournament entity is created, set the uid entity reference to
+   * When a new group entity is created, set the uid entity reference to
    * the current user as the creator of the entity.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
@@ -147,7 +147,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
-      ->setDescription(t('The title of the tournament entity.'))
+      ->setDescription(t('The title of the group entity.'))
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
@@ -164,7 +164,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Status'))
-      ->setDescription(t('A boolean indicating whether the tournament is enabled.'))
+      ->setDescription(t('A boolean indicating whether the group is enabled.'))
       ->setDefaultValue(TRUE)
       ->setSetting('on_label', 'Enabled')
       ->setDisplayOptions('form', [
@@ -187,7 +187,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['description'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Description'))
-      ->setDescription(t('A description of the tournament.'))
+      ->setDescription(t('A description of the group.'))
       ->setDisplayOptions('form', [
         'type' => 'text_textarea',
         'weight' => 10,
@@ -202,7 +202,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Author'))
-      ->setDescription(t('The user ID of the tournament author.'))
+      ->setDescription(t('The user ID of the group author.'))
       ->setSetting('target_type', 'user')
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
@@ -223,7 +223,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Authored on'))
-      ->setDescription(t('The time that the tournament was created.'))
+      ->setDescription(t('The time that the group was created.'))
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'timestamp',
@@ -238,7 +238,7 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the tournament was last edited.'));
+      ->setDescription(t('The time that the group was last edited.'));
 
     return $fields;
   }

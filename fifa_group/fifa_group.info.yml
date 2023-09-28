@@ -1,0 +1,8 @@
+name: Fifa Group
+type: module
+description: 'Provides a group entity.'
+package: Fifa
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:text
+configure: entity.fifa_group.settings

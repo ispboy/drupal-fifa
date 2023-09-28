@@ -1,0 +1,17 @@
+administer group:
+  title: 'Administer group settings'
+  restrict access: true
+access group overview:
+  title: 'Access group overview page'
+delete own group:
+  title: Delete own group
+delete any group:
+  title: Delete any group
+create group:
+  title: Create group
+view group:
+  title: View group
+edit own group:
+  title: Edit own group
+edit any group:
+  title: Edit any group
