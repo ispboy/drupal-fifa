@@ -1,0 +1,5 @@
+fifa_tournament.add_form:
+  route_name: entity.fifa_tournament.add_form
+  title: 'Add tournament'
+  appears_on:
+    - entity.fifa_tournament.collection

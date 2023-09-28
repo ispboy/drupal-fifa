@@ -45,8 +45,10 @@ function fifa_person_fifa_person_presave(Drupal\Core\Entity\EntityInterface $ent
   if ($card) {
     $birthday = strlen($card) == 15 ? ('19'. substr($card, 6, 6)) : substr($card, 6, 8);
     $timestamp = strtotime($birthday);
-    $date = DrupalDateTime::createFromTimestamp($timestamp);
-    $entity->set('field_birthday', $date->format('Y-m-d'));
+    if ($timestamp) {
+      $date = DrupalDateTime::createFromTimestamp($timestamp);
+      $entity->set('field_birthday', $date->format('Y-m-d'));
+    }
   }
 }
 

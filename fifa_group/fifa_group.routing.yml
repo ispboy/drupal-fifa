@@ -1,0 +1,7 @@
+entity.fifa_group.settings:
+  path: 'admin/structure/fifa-group'
+  defaults:
+    _form: '\Drupal\fifa_group\Form\FifaGroupSettingsForm'
+    _title: 'Group'
+  requirements:
+    _permission: 'administer group'

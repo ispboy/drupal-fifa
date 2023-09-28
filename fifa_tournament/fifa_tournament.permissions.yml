@@ -1,0 +1,15 @@
+administer tournament:
+  title: 'Administer tournament settings'
+  restrict access: true
+access tournament overview:
+  title: 'Access tournament overview page'
+delete tournament:
+  title: Delete tournament
+create tournament:
+  title: Create tournament
+view tournament:
+  title: View tournament
+edit own tournament:
+  title: Edit own tournament
+edit any tournament:
+  title: Edit any tournament

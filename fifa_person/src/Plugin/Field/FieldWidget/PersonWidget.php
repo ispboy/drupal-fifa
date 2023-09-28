@@ -39,6 +39,7 @@ class PersonWidget extends EntityReferenceAutocompleteWidget {
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    $values = parent::massageFormValues($values, $form, $form_state);
     foreach ($values as $delta => $value) {
       if ($value['number'] === '') {
         $values[$delta]['number'] = NULL;

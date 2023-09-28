@@ -1,0 +1,10 @@
+entity.fifa_group.settings:
+  title: Group
+  description: Configure a Group entity type
+  route_name:  entity.fifa_group.settings
+  parent: system.admin_structure
+entity.fifa_group.collection:
+  title: Groups
+  description: List of groups
+  route_name: entity.fifa_group.collection
+  parent: system.admin_content

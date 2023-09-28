@@ -1,0 +1,22 @@
+entity.fifa_tournament.settings:
+  title: Settings
+  route_name: entity.fifa_tournament.settings
+  base_route: entity.fifa_tournament.settings
+entity.fifa_tournament.view:
+  title: View
+  route_name: entity.fifa_tournament.canonical
+  base_route: entity.fifa_tournament.canonical
+entity.fifa_tournament.edit_form:
+  title: Edit
+  route_name: entity.fifa_tournament.edit_form
+  base_route: entity.fifa_tournament.canonical
+entity.fifa_tournament.delete_form:
+  title: Delete
+  route_name: entity.fifa_tournament.delete_form
+  base_route: entity.fifa_tournament.canonical
+  weight: 10
+entity.fifa_tournament.collection:
+  title: Tournament
+  route_name: entity.fifa_tournament.collection
+  base_route: system.admin_content
+  weight: 10

@@ -1,0 +1,9 @@
+name: Fifa Tournament
+type: module
+description: 'Provides a tournament entity.'
+package: Fifa
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:text
+  - drupal:text
+configure: entity.fifa_tournament.settings

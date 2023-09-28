@@ -1,0 +1,7 @@
+entity.fifa_tournament.settings:
+  path: 'admin/structure/fifa-tournament'
+  defaults:
+    _form: '\Drupal\fifa_tournament\Form\FifaTournamentSettingsForm'
+    _title: 'Tournament'
+  requirements:
+    _permission: 'administer tournament'
