@@ -6,15 +6,15 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 
 /**
- * Plugin implementation of the 'fifa_person_person_number' formatter.
+ * Plugin implementation of the 'fifa_person_reference_number' formatter.
  *
  * @FieldFormatter(
- *   id = "fifa_person_person_number",
+ *   id = "fifa_person_reference_number",
  *   label = @Translation("Number only"),
- *   field_types = {"fifa_person_person"}
+ *   field_types = {"fifa_person_reference"}
  * )
  */
-class PersonNumberFormatter extends FormatterBase {
+class PersonReferenceNumberFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
