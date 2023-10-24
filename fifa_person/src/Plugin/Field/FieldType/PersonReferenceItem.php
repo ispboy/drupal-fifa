@@ -28,8 +28,8 @@ class PersonReferenceItem extends EntityReferenceItem {
    */
   public static function defaultStorageSettings() {
     return [
-      'target_type' => ['fifa_person'],
-    ];
+      'target_type' => 'fifa_person',
+    ] + parent::defaultStorageSettings();
   }
 
   /**
