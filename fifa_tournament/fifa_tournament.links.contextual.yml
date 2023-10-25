@@ -1,0 +1,10 @@
+entity.fifa_tournament.edit_form:
+  route_name: entity.fifa_tournament.edit_form
+  group: fifa_tournament
+  title: Edit
+
+entity.fifa_tournament.delete_form:
+  route_name: entity.fifa_tournament.delete_form
+  group: fifa_tournament
+  title: Delete
+  weight: 10

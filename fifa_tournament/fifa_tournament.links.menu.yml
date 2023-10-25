@@ -1,10 +1,10 @@
 entity.fifa_tournament.settings:
-  title: Tournament
-  description: Configure a Tournament entity type
+  title: 'Tournament'
+  description: 'Configure a Tournament entity type.'
   route_name:  entity.fifa_tournament.settings
   parent: system.admin_structure
 entity.fifa_tournament.collection:
-  title: Tournaments
-  description: List of tournaments
+  title: 'Tournaments'
+  description: 'List of tournaments.'
   route_name: entity.fifa_tournament.collection
   parent: system.admin_content

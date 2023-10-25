@@ -1,8 +1,6 @@
 administer tournament:
   title: 'Administer tournament settings'
   restrict access: true
-access tournament overview:
-  title: 'Access tournament overview page'
 delete tournament:
   title: Delete tournament
 create tournament:

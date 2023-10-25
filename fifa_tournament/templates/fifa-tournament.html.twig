@@ -3,18 +3,21 @@
  * @file
  * Default theme implementation to present a tournament entity.
  *
- * This template is used when viewing a registered tournament's page,
- * e.g., /admin/content/fifa-tournament)/123. 123 being the tournament's ID.
+ * This template is used when viewing a canonical tournament page,
  *
  * Available variables:
  * - content: A list of content items. Use 'content' to print all content, or
- *   print a subset such as 'content.title'.
+ *   print a subset such as 'content.label'.
  * - attributes: HTML attributes for the container element.
  *
  * @see template_preprocess_fifa_tournament()
  */
 #}
 <article{{ attributes }}>
+  {% if view_mode != 'full' %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
   {% if content %}
     {{- content -}}
   {% endif %}

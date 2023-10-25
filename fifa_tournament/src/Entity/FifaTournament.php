@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\fifa_tournament\FifaTournamentInterface;
-use Drupal\user\UserInterface;
+use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the tournament entity class.
@@ -17,125 +17,57 @@ use Drupal\user\UserInterface;
  *   id = "fifa_tournament",
  *   label = @Translation("Tournament"),
  *   label_collection = @Translation("Tournaments"),
+ *   label_singular = @Translation("tournament"),
+ *   label_plural = @Translation("tournaments"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count tournaments",
+ *     plural = "@count tournaments",
+ *   ),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\fifa_tournament\FifaTournamentListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "access" = "Drupal\fifa_tournament\FifaTournamentAccessControlHandler",
  *     "form" = {
  *       "add" = "Drupal\fifa_tournament\Form\FifaTournamentForm",
  *       "edit" = "Drupal\fifa_tournament\Form\FifaTournamentForm",
- *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm"
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
  *     }
  *   },
  *   base_table = "fifa_tournament",
- *   admin_permission = "administer tournament",
+ *   admin_permission = "administer fifa tournament",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "title",
- *     "uuid" = "uuid"
+ *     "label" = "label",
+ *     "uuid" = "uuid",
+ *     "owner" = "uid",
  *   },
  *   links = {
- *     "add-form" = "/admin/content/fifa-tournament/add",
+ *     "collection" = "/admin/content/fifa-tournament",
+ *     "add-form" = "/fifa-tournament/add",
  *     "canonical" = "/fifa-tournament/{fifa_tournament}",
- *     "edit-form" = "/admin/content/fifa-tournament/{fifa_tournament}/edit",
- *     "delete-form" = "/admin/content/fifa-tournament/{fifa_tournament}/delete",
- *     "collection" = "/admin/content/fifa-tournament"
+ *     "edit-form" = "/fifa-tournament/{fifa_tournament}/edit",
+ *     "delete-form" = "/fifa-tournament/{fifa_tournament}/delete",
  *   },
- *   field_ui_base_route = "entity.fifa_tournament.settings"
+ *   field_ui_base_route = "entity.fifa_tournament.settings",
  * )
  */
 class FifaTournament extends ContentEntityBase implements FifaTournamentInterface {
 
   use EntityChangedTrait;
-
-  /**
-   * {@inheritdoc}
-   *
-   * When a new tournament entity is created, set the uid entity reference to
-   * the current user as the creator of the entity.
-   */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
-    parent::preCreate($storage_controller, $values);
-    $values += ['uid' => \Drupal::currentUser()->id()];
-  }
+  use EntityOwnerTrait;
 
   /**
    * {@inheritdoc}
    */
-  public function getTitle() {
-    return $this->get('title')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setTitle($title) {
-    $this->set('title', $title);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEnabled() {
-    return (bool) $this->get('status')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setStatus($status) {
-    $this->set('status', $status);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCreatedTime() {
-    return $this->get('created')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setCreatedTime($timestamp) {
-    $this->set('created', $timestamp);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOwner() {
-    return $this->get('uid')->entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOwnerId() {
-    return $this->get('uid')->target_id;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwnerId($uid) {
-    $this->set('uid', $uid);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwner(UserInterface $account) {
-    $this->set('uid', $account->id());
-    return $this;
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+    if (!$this->getOwnerId()) {
+      // If no owner has been set explicitly, make the anonymous user the owner.
+      $this->setOwnerId(0);
+    }
   }
 
   /**
@@ -145,9 +77,8 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['title'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Title'))
-      ->setDescription(t('The title of the tournament entity.'))
+    $fields['label'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Label'))
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
@@ -164,7 +95,6 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Status'))
-      ->setDescription(t('A boolean indicating whether the tournament is enabled.'))
       ->setDefaultValue(TRUE)
       ->setSetting('on_label', 'Enabled')
       ->setDisplayOptions('form', [
@@ -187,7 +117,6 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['description'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Description'))
-      ->setDescription(t('A description of the tournament.'))
       ->setDisplayOptions('form', [
         'type' => 'text_textarea',
         'weight' => 10,
@@ -202,8 +131,8 @@ class FifaTournament extends ContentEntityBase implements FifaTournamentInterfac
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Author'))
-      ->setDescription(t('The user ID of the tournament author.'))
       ->setSetting('target_type', 'user')
+      ->setDefaultValueCallback(static::class . '::getDefaultEntityOwner')
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [

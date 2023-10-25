@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Render\Element;
+use Drupal\fifa_tournament\Entity\FifaTournament;
+use Drupal\user\UserInterface;
 
 /**
  * Implements hook_theme().
@@ -30,7 +32,53 @@ function fifa_tournament_theme() {
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_fifa_tournament(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function fifa_tournament_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish tournaments.
+      $storage = \Drupal::entityTypeManager()->getStorage('fifa_tournament');
+      $fifa_tournament_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($fifa_tournament_ids) as $fifa_tournament) {
+        $fifa_tournament->set('status', FALSE);
+        $fifa_tournament->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize tournaments.
+      $storage = \Drupal::entityTypeManager()->getStorage('fifa_tournament');
+      $fifa_tournament_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($fifa_tournament_ids) as $fifa_tournament) {
+        $fifa_tournament->setOwnerId(0);
+        $fifa_tournament->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function fifa_tournament_user_predelete(UserInterface $account) {
+  // Delete tournaments.
+  $storage = \Drupal::entityTypeManager()->getStorage('fifa_tournament');
+  $fifa_tournament_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $fifa_tournaments = $storage->loadMultiple($fifa_tournament_ids);
+  $storage->delete($fifa_tournaments);
 }
