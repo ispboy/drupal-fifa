@@ -3,18 +3,21 @@
  * @file
  * Default theme implementation to present a team entity.
  *
- * This template is used when viewing a registered team's page,
- * e.g., /admin/content/fifa-team)/123. 123 being the team's ID.
+ * This template is used when viewing a canonical team page,
  *
  * Available variables:
  * - content: A list of content items. Use 'content' to print all content, or
- *   print a subset such as 'content.title'.
+ *   print a subset such as 'content.label'.
  * - attributes: HTML attributes for the container element.
  *
  * @see template_preprocess_fifa_team()
  */
 #}
 <article{{ attributes }}>
+  {% if view_mode != 'full' %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
   {% if content %}
     {{- content -}}
   {% endif %}

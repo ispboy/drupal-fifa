@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Render\Element;
+use Drupal\fifa_team\Entity\FifaTeam;
+use Drupal\user\UserInterface;
 
 /**
  * Implements hook_theme().
@@ -30,7 +32,53 @@ function fifa_team_theme() {
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_fifa_team(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function fifa_team_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish teams.
+      $storage = \Drupal::entityTypeManager()->getStorage('fifa_team');
+      $fifa_team_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($fifa_team_ids) as $fifa_team) {
+        $fifa_team->set('status', FALSE);
+        $fifa_team->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize teams.
+      $storage = \Drupal::entityTypeManager()->getStorage('fifa_team');
+      $fifa_team_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($fifa_team_ids) as $fifa_team) {
+        $fifa_team->setOwnerId(0);
+        $fifa_team->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function fifa_team_user_predelete(UserInterface $account) {
+  // Delete teams.
+  $storage = \Drupal::entityTypeManager()->getStorage('fifa_team');
+  $fifa_team_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $fifa_teams = $storage->loadMultiple($fifa_team_ids);
+  $storage->delete($fifa_teams);
 }

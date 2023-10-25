@@ -1,0 +1,10 @@
+entity.fifa_team.edit_form:
+  route_name: entity.fifa_team.edit_form
+  group: fifa_team
+  title: Edit
+
+entity.fifa_team.delete_form:
+  route_name: entity.fifa_team.delete_form
+  group: fifa_team
+  title: Delete
+  weight: 10

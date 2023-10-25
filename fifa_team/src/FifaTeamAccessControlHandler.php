@@ -16,6 +16,7 @@ class FifaTeamAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
+
     $uid = $account->id();
 
     switch ($operation) {
@@ -47,7 +48,11 @@ class FifaTeamAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermissions($account, ['create team', 'administer team'], 'OR');
+    return AccessResult::allowedIfHasPermissions(
+      $account,
+      ['create team', 'administer team'],
+      'OR',
+    );
   }
 
 }

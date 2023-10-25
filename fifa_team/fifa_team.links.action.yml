@@ -1,5 +1,5 @@
 fifa_team.add_form:
-  route_name: entity.fifa_team.add_form
   title: 'Add team'
+  route_name: entity.fifa_team.add_form
   appears_on:
     - entity.fifa_team.collection

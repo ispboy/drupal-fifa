@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\fifa_team\FifaTeamInterface;
-use Drupal\user\UserInterface;
+use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the team entity class.
@@ -17,125 +17,57 @@ use Drupal\user\UserInterface;
  *   id = "fifa_team",
  *   label = @Translation("Team"),
  *   label_collection = @Translation("Teams"),
+ *   label_singular = @Translation("team"),
+ *   label_plural = @Translation("teams"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count teams",
+ *     plural = "@count teams",
+ *   ),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\fifa_team\FifaTeamListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "access" = "Drupal\fifa_team\FifaTeamAccessControlHandler",
  *     "form" = {
  *       "add" = "Drupal\fifa_team\Form\FifaTeamForm",
  *       "edit" = "Drupal\fifa_team\Form\FifaTeamForm",
- *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm"
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
  *     }
  *   },
  *   base_table = "fifa_team",
- *   admin_permission = "administer team",
+ *   admin_permission = "administer fifa team",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "title",
- *     "uuid" = "uuid"
+ *     "label" = "label",
+ *     "uuid" = "uuid",
+ *     "owner" = "uid",
  *   },
  *   links = {
- *     "add-form" = "/admin/content/fifa-team/add",
+ *     "collection" = "/admin/content/fifa-team",
+ *     "add-form" = "/fifa-team/add",
  *     "canonical" = "/fifa-team/{fifa_team}",
- *     "edit-form" = "/admin/content/fifa-team/{fifa_team}/edit",
- *     "delete-form" = "/admin/content/fifa-team/{fifa_team}/delete",
- *     "collection" = "/admin/content/fifa-team"
+ *     "edit-form" = "/fifa-team/{fifa_team}/edit",
+ *     "delete-form" = "/fifa-team/{fifa_team}/delete",
  *   },
- *   field_ui_base_route = "entity.fifa_team.settings"
+ *   field_ui_base_route = "entity.fifa_team.settings",
  * )
  */
 class FifaTeam extends ContentEntityBase implements FifaTeamInterface {
 
   use EntityChangedTrait;
-
-  /**
-   * {@inheritdoc}
-   *
-   * When a new team entity is created, set the uid entity reference to
-   * the current user as the creator of the entity.
-   */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
-    parent::preCreate($storage_controller, $values);
-    $values += ['uid' => \Drupal::currentUser()->id()];
-  }
+  use EntityOwnerTrait;
 
   /**
    * {@inheritdoc}
    */
-  public function getTitle() {
-    return $this->get('title')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setTitle($title) {
-    $this->set('title', $title);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEnabled() {
-    return (bool) $this->get('status')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setStatus($status) {
-    $this->set('status', $status);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCreatedTime() {
-    return $this->get('created')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setCreatedTime($timestamp) {
-    $this->set('created', $timestamp);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOwner() {
-    return $this->get('uid')->entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOwnerId() {
-    return $this->get('uid')->target_id;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwnerId($uid) {
-    $this->set('uid', $uid);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOwner(UserInterface $account) {
-    $this->set('uid', $account->id());
-    return $this;
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+    if (!$this->getOwnerId()) {
+      // If no owner has been set explicitly, make the anonymous user the owner.
+      $this->setOwnerId(0);
+    }
   }
 
   /**
@@ -145,9 +77,8 @@ class FifaTeam extends ContentEntityBase implements FifaTeamInterface {
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['title'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Title'))
-      ->setDescription(t('The title of the team entity.'))
+    $fields['label'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Label'))
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
@@ -164,7 +95,6 @@ class FifaTeam extends ContentEntityBase implements FifaTeamInterface {
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Status'))
-      ->setDescription(t('A boolean indicating whether the team is enabled.'))
       ->setDefaultValue(TRUE)
       ->setSetting('on_label', 'Enabled')
       ->setDisplayOptions('form', [
@@ -187,7 +117,6 @@ class FifaTeam extends ContentEntityBase implements FifaTeamInterface {
 
     $fields['description'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Description'))
-      ->setDescription(t('A description of the team.'))
       ->setDisplayOptions('form', [
         'type' => 'text_textarea',
         'weight' => 10,
@@ -202,8 +131,8 @@ class FifaTeam extends ContentEntityBase implements FifaTeamInterface {
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Author'))
-      ->setDescription(t('The user ID of the team author.'))
       ->setSetting('target_type', 'user')
+      ->setDefaultValueCallback(static::class . '::getDefaultEntityOwner')
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [
