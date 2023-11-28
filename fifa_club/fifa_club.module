@@ -34,3 +34,26 @@ function template_preprocess_fifa_club(array &$variables) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
 }
+
+/**
+ * Implements hook_views_data() for Club entities.
+ */
+function fifa_club_views_data() {
+
+  $data['fifa_club__field_person']['field_person_target_id'] = [
+ 
+    'relationship' => [
+      'title' => t('Person relationship'),
+      'help' => t('The detail personal information of member.'),
+      'group' => t('Fifa'),
+      'label' => t("Person"),      
+      'base' => 'fifa_person',
+      'base field' => 'id',
+      'relationship field' => 'field_person_target_id',
+      'id' => 'standard',
+    ],    
+  ];
+
+  return $data;
+
+}

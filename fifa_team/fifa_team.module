@@ -82,3 +82,25 @@ function fifa_team_user_predelete(UserInterface $account) {
   $fifa_teams = $storage->loadMultiple($fifa_team_ids);
   $storage->delete($fifa_teams);
 }
+
+/**
+ * Implements hook_views_data() for user entities.
+ */
+function fifa_team_views_data() {
+
+  $data['fifa_team__field_person']['field_person_target_id'] = [
+ 
+    'relationship' => [
+      'title' => t('Person relationship'),
+      'help' => t('The detail personal information of member.'),
+      'group' => t('Fifa'),
+      'label' => t("Person"),      
+      'base' => 'fifa_person',
+      'base field' => 'id',
+      'relationship field' => 'field_person_target_id',
+      'id' => 'standard',
+    ],    
+  ];
+
+  return $data;
+}
